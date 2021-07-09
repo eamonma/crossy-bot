@@ -1,0 +1,35 @@
+{
+  "name": "discord.ts-example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "build/bot.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "tsc && node build/bot.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oceanroleplay/discord.ts-example.git"
+  },
+  "keywords": [
+    "discordx",
+    "discord.ts",
+    "discord.js",
+    "bot",
+    "discord",
+    "typescript"
+  ],
+  "author": "Indian Ocean Roleplay",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/oceanroleplay/discord.ts-example/issues"
+  },
+  "homepage": "https://github.com/oceanroleplay/discord.ts-example#readme",
+  "devDependencies": {
+    "typescript": "^4.3.5"
+  },
+  "dependencies": {
+    "discordx": "^5.0.28",
+    "reflect-metadata": "^0.1.13"
+  }
+}
