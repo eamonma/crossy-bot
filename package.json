@@ -2,10 +2,11 @@
   "name": "discord.ts-example",
   "version": "1.0.0",
   "description": "",
-  "main": "build/bot.js",
+  "main": "build/client.js",
   "scripts": {
     "build": "tsc",
-    "start": "tsc && node build/bot.js"
+    "start": "node build/client.js",
+    "dev": "ts-node src/client.js"
   },
   "repository": {
     "type": "git",
