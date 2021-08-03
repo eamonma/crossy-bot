@@ -3,13 +3,17 @@ import {
   CommandInteraction,
   MessageButton,
   MessageActionRow,
+  Snowflake,
 } from "discord.js";
-import { Button, Discord, Slash } from "discordx";
+import { Button, Discord, Slash, Option } from "discordx";
 
 @Discord()
 class buttonExample {
   @Slash("hello")
-  async hello(interaction: CommandInteraction) {
+  async hello(
+    @Option("user", { required: true, type: "USER" }) user: Snowflake,
+    interaction: CommandInteraction
+  ) {
     await interaction.defer();
 
     const helloBtn = new MessageButton()
@@ -21,7 +25,7 @@ class buttonExample {
     const row = new MessageActionRow().addComponents(helloBtn);
 
     interaction.editReply({
-      content: "Say hello to bot",
+      content: `${user}, Say hello to bot`,
       components: [row],
     });
   }
