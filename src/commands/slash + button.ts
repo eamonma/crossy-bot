@@ -5,13 +5,13 @@ import {
   MessageActionRow,
   Snowflake,
 } from "discord.js";
-import { Button, Discord, Slash, Option } from "discordx";
+import { Button, Discord, Slash, SlashOption } from "discordx";
 
 @Discord()
 class buttonExample {
   @Slash("hello")
   async hello(
-    @Option("user", { required: true, type: "USER" }) user: Snowflake,
+    @SlashOption("user", { required: true, type: "USER" }) user: Snowflake,
     interaction: CommandInteraction
   ) {
     await interaction.defer();
