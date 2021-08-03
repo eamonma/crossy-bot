@@ -10,6 +10,7 @@ const client = new Client({
     path.join(__dirname, "commands", "**/*.{ts,js}"),
     path.join(__dirname, "events", "**/*.{ts,js}"),
   ],
+  // slashGuilds: ["475742959585722408"],
   silent: true,
 });
 
@@ -25,4 +26,4 @@ client.on("messageCreate", (message: Message) => {
   client.executeCommand(message);
 });
 
-client.login(""); // provide your button token
+client.login(process.env.BOT_TOKEN ?? ""); // provide your bot token
