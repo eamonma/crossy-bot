@@ -14,7 +14,7 @@ class buttonExample {
     @SlashOption("user", { required: true, type: "USER" }) user: Snowflake,
     interaction: CommandInteraction
   ) {
-    await interaction.defer();
+    await interaction.deferReply();
 
     const helloBtn = new MessageButton()
       .setLabel("Hello")
