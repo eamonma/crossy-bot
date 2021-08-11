@@ -5,12 +5,16 @@ import { Client } from "discordx";
 
 const client = new Client({
   prefix: "!",
-  intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
+  intents: [
+    Intents.FLAGS.GUILDS,
+    Intents.FLAGS.GUILD_MESSAGES,
+    Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
+  ],
   classes: [
     path.join(__dirname, "commands", "**/*.{ts,js}"),
     path.join(__dirname, "events", "**/*.{ts,js}"),
   ],
-  // slashGuilds: ["475742959585722408"],
+  // slashGuilds: ["874802018361950248"],
   silent: true,
 });
 
