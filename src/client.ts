@@ -14,12 +14,12 @@ const client = new Client({
     path.join(__dirname, "commands", "**/*.{ts,js}"),
     path.join(__dirname, "events", "**/*.{ts,js}"),
   ],
-  // slashGuilds: ["874802018361950248"],
+  slashGuilds: ["874802018361950248"],
   silent: true,
 });
 
 client.on("ready", () => {
-  client.initSlashes({ log: { forGuild: true, forGlobal: true } });
+  client.initApplicationCommands({ log: { forGuild: true, forGlobal: true } });
 });
 
 client.on("interactionCreate", (interaction: Interaction) => {

@@ -5,7 +5,7 @@ import {
   MessageActionRow,
   Snowflake,
 } from "discord.js";
-import { Button, Discord, Slash, SlashOption } from "discordx";
+import { ButtonComponent, Discord, Slash, SlashOption } from "discordx";
 
 @Discord()
 class buttonExample {
@@ -30,7 +30,7 @@ class buttonExample {
     });
   }
 
-  @Button("hello-btn")
+  @ButtonComponent("hello-btn")
   mybtn(interaction: ButtonInteraction) {
     interaction.reply(`👋 ${interaction.member}`);
   }

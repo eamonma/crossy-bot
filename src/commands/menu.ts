@@ -4,7 +4,7 @@ import {
   SelectMenuInteraction,
   MessageSelectMenu,
 } from "discord.js";
-import { Discord, Slash, SelectMenu } from "discordx";
+import { Discord, Slash, SelectMenuComponent } from "discordx";
 
 const roles = [
   { label: "Principal", value: "principal" },
@@ -14,7 +14,7 @@ const roles = [
 
 @Discord()
 export abstract class buttons {
-  @SelectMenu("role-menu")
+  @SelectMenuComponent("role-menu")
   async handle(interaction: SelectMenuInteraction): Promise<unknown> {
     await interaction.deferReply();
 

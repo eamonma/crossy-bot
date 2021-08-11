@@ -1,17 +1,17 @@
 import { Message } from "discord.js";
-import { Command, CommandOption, Discord } from "discordx";
+import { SimpleCommand, SimpleCommandOption, Discord } from "discordx";
 
 @Discord()
 class simpleCommandExample {
-  @Command("hello", { aliases: ["hi"] })
+  @SimpleCommand("hello", { aliases: ["hi"] })
   hello(message: Message) {
     message.reply(`👋 ${message.member}`);
   }
 
-  @Command("sum", { argSplitter: "+" })
+  @SimpleCommand("sum", { argSplitter: "+" })
   sum(
-    @CommandOption() num1: number,
-    @CommandOption() num2: number,
+    @SimpleCommandOption() num1: number,
+    @SimpleCommandOption() num2: number,
     message: Message
   ) {
     if (typeof num1 !== "number" || typeof num2 !== "number") {
