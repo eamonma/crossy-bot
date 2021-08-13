@@ -14,7 +14,7 @@ const client = new Client({
     path.join(__dirname, "commands", "**/*.{ts,js}"),
     path.join(__dirname, "events", "**/*.{ts,js}"),
   ],
-  slashGuilds: ["874802018361950248"],
+  botGuilds: ["874802018361950248"],
   silent: true,
 });
 
