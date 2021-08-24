@@ -1,19 +1,15 @@
-import { Interaction } from "discord.js";
+import { ContextMenuInteraction } from "discord.js";
 import { Discord, ContextMenu } from "discordx";
 
 @Discord()
 export abstract class contextTest {
   @ContextMenu("MESSAGE", "message context")
-  async messageHandler(interaction: Interaction) {
-    if (interaction.isContextMenu()) {
-      interaction.reply("I am user context handler");
-    }
+  async messageHandler(interaction: ContextMenuInteraction) {
+    interaction.reply("I am user context handler");
   }
 
   @ContextMenu("USER", "user context")
-  async userHandler(interaction: Interaction) {
-    if (interaction.isContextMenu()) {
-      interaction.reply("I am user context handler");
-    }
+  async userHandler(interaction: ContextMenuInteraction) {
+    interaction.reply("I am user context handler");
   }
 }

@@ -10,8 +10,8 @@ class simpleCommandExample {
 
   @SimpleCommand("sum", { argSplitter: "+" })
   sum(
-    @SimpleCommandOption() num1: number,
-    @SimpleCommandOption() num2: number,
+    @SimpleCommandOption("num1") num1: number,
+    @SimpleCommandOption("num2") num2: number,
     message: Message
   ) {
     if (typeof num1 !== "number" || typeof num2 !== "number") {
