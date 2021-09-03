@@ -1,22 +1,26 @@
-import { Message } from "discord.js";
-import { SimpleCommand, SimpleCommandOption, Discord } from "discordx";
+import {
+  Discord,
+  SimpleCommand,
+  SimpleCommandMessage,
+  SimpleCommandOption,
+} from "discordx";
 
 @Discord()
 class simpleCommandExample {
   @SimpleCommand("hello", { aliases: ["hi"] })
-  hello(message: Message) {
-    message.reply(`👋 ${message.member}`);
+  hello(command: SimpleCommandMessage) {
+    command.message.reply(`👋 ${command.message.member}`);
   }
 
   @SimpleCommand("sum", { argSplitter: "+" })
   sum(
     @SimpleCommandOption("num1") num1: number,
     @SimpleCommandOption("num2") num2: number,
-    message: Message
+    command: SimpleCommandMessage
   ) {
     if (typeof num1 !== "number" || typeof num2 !== "number") {
-      return message.reply(`**Usage**: 1+1`);
+      return command.message.reply(`**Usage**: 1+1`);
     }
-    message.reply(`total = ${num1 + num2}`);
+    command.message.reply(`total = ${num1 + num2}`);
   }
 }
