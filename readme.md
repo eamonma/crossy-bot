@@ -4,9 +4,12 @@
 - `cd discord.ts-example`
 - `npm install`
 - `npm run build`
-- define your bot token in .env, if you don't have token yet than create one at [discord developer portal](https://discord.com/developers/)
+- `set BOT_TOKEN=<your bot token>`
+
+  if you don't have token yet than create one at [discord developer portal](https://discord.com/developers/)
+
 - `npm run start`
 
-you are done, you will see your bot up and running
+you are done, you will see your bot up and running. For detailed installation guide, please [see this](https://oceanroleplay.github.io/discord.ts/docs/installation)
 
 # Thank you
