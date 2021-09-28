@@ -15,12 +15,18 @@ const client = new Client({
     path.join(__dirname, "commands", "**/*.{ts,js}"),
     path.join(__dirname, "events", "**/*.{ts,js}"),
   ],
-  botGuilds: [process.env.GUILD_ID ?? ""],
+  botGuilds: [(client) => client.guilds.cache.map((guild) => guild.id)],
   silent: true,
 });
 
-client.on("ready", () => {
-  client.initApplicationCommands({ log: { forGuild: true, forGlobal: true } });
+client.once("ready", async () => {
+  await client.initApplicationCommands({
+    guild: { log: true },
+    global: { log: true },
+  });
+  await client.initApplicationPermissions();
+
+  console.log("Bot started");
 });
 
 client.on("interactionCreate", (interaction: Interaction) => {
