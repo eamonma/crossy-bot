@@ -4,7 +4,9 @@ import { Intents, Interaction, Message } from "discord.js";
 import { Client } from "discordx";
 
 const client = new Client({
-  prefix: "!",
+  simpleCommand: {
+    prefix: "!",
+  },
   intents: [
     Intents.FLAGS.GUILDS,
     Intents.FLAGS.GUILD_MESSAGES,
