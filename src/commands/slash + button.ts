@@ -4,6 +4,8 @@ import {
   MessageButton,
   MessageActionRow,
   Snowflake,
+  User,
+  GuildMember,
 } from "discord.js";
 import { ButtonComponent, Discord, Slash, SlashOption } from "discordx";
 
@@ -11,7 +13,8 @@ import { ButtonComponent, Discord, Slash, SlashOption } from "discordx";
 class buttonExample {
   @Slash("hello")
   async hello(
-    @SlashOption("user", { required: true, type: "USER" }) user: Snowflake,
+    @SlashOption("user", { required: true, type: "USER" })
+    user: User | GuildMember | undefined,
     interaction: CommandInteraction
   ) {
     await interaction.deferReply();

@@ -14,12 +14,12 @@ class simpleCommandExample {
 
   @SimpleCommand("sum", { argSplitter: "+" })
   sum(
-    @SimpleCommandOption("num1") num1: number,
-    @SimpleCommandOption("num2") num2: number,
+    @SimpleCommandOption("num1", { type: "NUMBER" }) num1: number | undefined,
+    @SimpleCommandOption("num2", { type: "NUMBER" }) num2: number | undefined,
     command: SimpleCommandMessage
   ) {
-    if (typeof num1 !== "number" || typeof num2 !== "number") {
-      return command.message.reply(`**Usage**: 1+1`);
+    if (!num1 || !num2) {
+      return command.sendUsageSyntax();
     }
     command.message.reply(`total = ${num1 + num2}`);
   }

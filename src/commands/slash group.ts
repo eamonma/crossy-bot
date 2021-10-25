@@ -16,9 +16,9 @@ export abstract class AppDiscord {
   @Slash("add9")
   @SlashGroup("maths")
   add(
-    @SlashOption("x", { description: "x value" })
+    @SlashOption("x", { description: "x value", required: true })
     x: number,
-    @SlashOption("y", { description: "y value" })
+    @SlashOption("y", { description: "y value", required: true })
     y: number,
     interaction: CommandInteraction
   ) {
@@ -28,9 +28,9 @@ export abstract class AppDiscord {
   @Slash("multiply")
   @SlashGroup("maths")
   multiply(
-    @SlashOption("x", { description: "x value" })
+    @SlashOption("x", { description: "x value", required: true })
     x: number,
-    @SlashOption("y", { description: "y value" })
+    @SlashOption("y", { description: "y value", required: true })
     y: number,
     interaction: CommandInteraction
   ) {
@@ -41,7 +41,7 @@ export abstract class AppDiscord {
   @SlashGroup("text")
   hello(
     @SlashChoice(TextChoices)
-    @SlashOption("text")
+    @SlashOption("text", { required: true })
     text: TextChoices,
     interaction: CommandInteraction
   ) {
@@ -50,7 +50,7 @@ export abstract class AppDiscord {
 
   @Slash("hello")
   root(
-    @SlashOption("text")
+    @SlashOption("text", { required: true })
     text: string,
     interaction: CommandInteraction
   ) {
@@ -63,7 +63,7 @@ export abstract class AppDiscord1 {
   @Slash("hello")
   @Slash("hellox")
   add(
-    @SlashOption("text")
+    @SlashOption("text", { required: true })
     text: string,
     interaction: CommandInteraction
   ) {

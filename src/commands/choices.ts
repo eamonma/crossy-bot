@@ -25,7 +25,7 @@ class choicesExample {
   async choice(
     @SlashChoice(TextChoices)
     @SlashChoice("How are you", "question")
-    @SlashOption("text")
+    @SlashOption("text", { required: true })
     what: string,
     interaction: CommandInteraction
   ) {
