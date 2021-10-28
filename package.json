@@ -31,9 +31,9 @@
     "typescript": "^4.4.4"
   },
   "dependencies": {
-    "@discordx/utilities": "^2.0.0",
+    "@discordx/utilities": "^2.1.1",
     "discord.js": "^13.2.0",
-    "discordx": "^7.0.0",
+    "discordx": "^7.1.0",
     "reflect-metadata": "^0.1.13"
   }
 }
