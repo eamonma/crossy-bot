@@ -22,11 +22,14 @@ const client = new Client({
 });
 
 client.once("ready", async () => {
+  // init all applicaiton commands
   await client.initApplicationCommands({
     guild: { log: true },
     global: { log: true },
   });
-  await client.initApplicationPermissions();
+
+  // init permissions; enabled log to see changes
+  await client.initApplicationPermissions(true);
 
   console.log("Bot started");
 });
