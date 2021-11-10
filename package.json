@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "description": "discordx bot example",
   "main": "build/client.js",
+  "type": "module",
   "scripts": {
     "build": "tsc",
     "start": "node build/client.js",
-    "dev": "ts-node src/client.ts"
+    "dev": "node --loader ts-node/esm/transpile-only src/client.ts"
   },
   "repository": {
     "type": "git",
@@ -28,12 +29,13 @@
   "homepage": "https://github.com/oceanroleplay/discord.ts-example#readme",
   "devDependencies": {
     "prettier": "^2.4.1",
+    "ts-node": "^10.4.0",
     "typescript": "^4.4.4"
   },
   "dependencies": {
-    "@discordx/utilities": "^3.1.1",
+    "@discordx/utilities": "^3.1.2",
     "discord.js": "^13.3.1",
-    "discordx": "^8.1.0",
+    "discordx": "^9.0.0",
     "reflect-metadata": "^0.1.13"
   }
 }

@@ -1,4 +1,5 @@
-import { Discord, On, Client, ArgsOf } from "discordx";
+import type { ArgsOf } from "discordx";
+import { Discord, On, Client } from "discordx";
 
 @Discord()
 export abstract class AppDiscord {
