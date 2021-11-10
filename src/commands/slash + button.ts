@@ -11,7 +11,7 @@ import { ButtonComponent, Discord, Slash, SlashOption } from "discordx";
 
 @Discord()
 class buttonExample {
-  @Slash("hello")
+  @Slash("hello-btn")
   async hello(
     @SlashOption("user", { required: true, type: "USER" })
     user: User | GuildMember | undefined,
