@@ -2,8 +2,8 @@ import "reflect-metadata";
 import path from "path";
 import { Intents, Interaction, Message } from "discord.js";
 import { Client } from "discordx";
+import { importx } from "@discordx/importer";
 import { fileURLToPath } from "url";
-
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const client = new Client({
@@ -15,10 +15,6 @@ const client = new Client({
     Intents.FLAGS.GUILD_MESSAGES,
     Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
     Intents.FLAGS.GUILD_VOICE_STATES,
-  ],
-  classes: [
-    path.join(__dirname, "commands", "**/*.{ts,js}"),
-    path.join(__dirname, "events", "**/*.{ts,js}"),
   ],
   botGuilds: [(client) => client.guilds.cache.map((guild) => guild.id)],
   silent: true,
@@ -44,5 +40,9 @@ client.on("interactionCreate", (interaction: Interaction) => {
 client.on("messageCreate", (message: Message) => {
   client.executeCommand(message);
 });
+
+const commands = importx([
+  path.join(__dirname, "{events,commands}", "**/*.{ts,js}"),
+]);
 
 client.login(process.env.BOT_TOKEN ?? ""); // provide your bot token
