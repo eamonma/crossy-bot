@@ -1,6 +1,5 @@
 {
   "name": "discord.ts-example",
-  "type": "module",
   "version": "1.0.0",
   "description": "discordx bot example",
   "keywords": [
@@ -24,6 +23,7 @@
   "contributors": [
     "Harry <indianoceanroleplay@gmail.com> (https://github.com/oceanroleplay)"
   ],
+  "type": "module",
   "main": "build/client.js",
   "scripts": {
     "build": "tsc",
@@ -32,7 +32,7 @@
     "start": "node build/client.js"
   },
   "dependencies": {
-    "@discordx/importer": "^1.0.5",
+    "@discordx/importer": "^1.1.1",
     "@discordx/utilities": "^3.1.4",
     "discord.js": "^13.3.1",
     "discordx": "^9.0.1",

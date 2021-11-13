@@ -1,10 +1,7 @@
 import "reflect-metadata";
-import path from "path";
 import { Intents, Interaction, Message } from "discord.js";
 import { Client } from "discordx";
-import { importx } from "@discordx/importer";
-import { fileURLToPath } from "url";
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+import { dirname, importx } from "@discordx/importer";
 
 const client = new Client({
   simpleCommand: {
@@ -41,8 +38,12 @@ client.on("messageCreate", (message: Message) => {
   client.executeCommand(message);
 });
 
-const commands = importx([
-  path.join(__dirname, "{events,commands}", "**/*.{ts,js}"),
-]);
+async function run() {
+  // with cjs
+  // await importx(__dirname + "/{events,commands}/**/*.{ts,js}");
+  // with ems
+  await importx(dirname(import.meta.url) + "/{events,commands}/**/*.{ts,js}");
+  client.login(process.env.BOT_TOKEN ?? ""); // provide your bot token
+}
 
-client.login(process.env.BOT_TOKEN ?? ""); // provide your bot token
+run();
