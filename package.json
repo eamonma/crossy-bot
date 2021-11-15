@@ -32,8 +32,8 @@
     "serve": "node build/client.js"
   },
   "dependencies": {
-    "@discordx/importer": "^1.1.1",
-    "@discordx/utilities": "^3.1.4",
+    "@discordx/importer": "^1.1.2",
+    "@discordx/utilities": "^3.1.5",
     "discord.js": "^13.3.1",
     "discordx": "^9.0.1",
     "reflect-metadata": "^0.1.13"
