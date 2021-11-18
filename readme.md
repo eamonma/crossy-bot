@@ -12,4 +12,49 @@
 
 you are done, you will see your bot up and running. For detailed installation guide, please [see this](https://oceanroleplay.github.io/discord.ts/docs/installation)
 
+# Use CommonJS
+
+This repo is targed to use ECMAScript modules by default. Follow these steps to use CommonJS.
+
+## Update package.json
+
+```json
+{
+  // ...
+  "type": "commonjs",
+  // ...
+  "scripts": {
+    "build": "tsc",
+    "dev": "ts-node src/client.ts",
+    "start": "nodemon --exec ts-node src/client.ts",
+    "serve": "node build/client.js"
+  }
+  // ...
+}
+```
+
+## Update tsconfig.json
+
+```json
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "CommonJS"
+    // ...
+  }
+}
+```
+
+## Update client.ts
+
+```ts
+async function run() {
+  // with cjs
+  await importx(__dirname + "/{events,commands}/**/*.{ts,js}");
+  // with ems
+  // await importx(dirname(import.meta.url) + "/{events,commands}/**/*.{ts,js}");
+  client.login(process.env.BOT_TOKEN ?? ""); // provide your bot token
+}
+```
+
 # Thank you
