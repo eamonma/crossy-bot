@@ -51,6 +51,18 @@
 
 you are done, you will see your bot up and running. For detailed installation guide, please [see this](https://oceanroleplay.github.io/discord.ts/docs/installation)
 
+# Use global command only
+
+This repository uses guild commands instead of global commands by default. This is because global command needs approximately 15 minutes to update itself every time.
+
+## 1. How do I use global command only?
+
+### comment [this line in client.ts](https://github.com/oceanroleplay/discord.ts-example/blob/main/src/client.ts#L18)
+
+## 2. How do I make specific guild command?
+
+### use [@Guild](https://discord-ts.js.org/docs/decorators/general/guild) decorator on [@Slash](https://discord-ts.js.org/docs/decorators/commands/slash), [check more information](https://discord-ts.js.org/docs/decorators/general/guild)
+
 # Use CommonJS
 
 This repo is targed to use ECMAScript modules by default. Follow these steps to use CommonJS.
