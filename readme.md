@@ -11,14 +11,14 @@
         src="https://img.shields.io/discord/874802018361950248?color=5865F2&logo=discord&logoColor=white"
         alt="Discord server"
     /></a>
-    <a href="https://www.npmjs.com/package/@discordx/music"
+    <a href="https://www.npmjs.com/package/discordx"
       ><img
-        src="https://img.shields.io/npm/v/@discordx/music.svg?maxAge=3600"
+        src="https://img.shields.io/npm/v/discordx.svg?maxAge=3600"
         alt="NPM version"
     /></a>
-    <a href="https://www.npmjs.com/package/@discordx/music"
+    <a href="https://www.npmjs.com/package/discordx"
       ><img
-        src="https://img.shields.io/npm/dt/@discordx/music.svg?maxAge=3600"
+        src="https://img.shields.io/npm/dt/discordx.svg?maxAge=3600"
         alt="NPM downloads"
     /></a>
     <a href="https://github.com/oceanroleplay/discord.ts/actions"
