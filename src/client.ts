@@ -14,12 +14,15 @@ const client = new Client({
     Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
     Intents.FLAGS.GUILD_VOICE_STATES,
   ],
-  // If you only want to use guild commands, uncomment this line
-  // botGuilds: [(client) => client.guilds.cache.map((guild) => guild.id)],
+  // If you only want to use global commands only, comment this line
+  botGuilds: [(client) => client.guilds.cache.map((guild) => guild.id)],
   silent: true,
 });
 
 client.once("ready", async () => {
+  // make sure all guilds are in cache
+  await client.guilds.fetch();
+
   // init all application commands
   await client.initApplicationCommands({
     guild: { log: true },
@@ -28,6 +31,11 @@ client.once("ready", async () => {
 
   // init permissions; enabled log to see changes
   await client.initApplicationPermissions(true);
+
+  // comment this line if it becomes unnecessory
+  await client.clearApplicationCommands(
+    ...client.guilds.cache.map((g) => g.id)
+  );
 
   console.log("Bot started");
 });
