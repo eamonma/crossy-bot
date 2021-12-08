@@ -43,7 +43,7 @@
 - `cd discord.ts-example`
 - `npm install`
 - `npm run build`
-- `set BOT_TOKEN="<your bot token>"`
+- `set BOT_TOKEN=<your bot token>`
 
   if you don't have token yet than create one at [discord developer portal](https://discord.com/developers/)
 
