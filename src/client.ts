@@ -32,10 +32,11 @@ client.once("ready", async () => {
   // init permissions; enabled log to see changes
   await client.initApplicationPermissions(true);
 
-  // comment this line if it becomes unnecessory
-  await client.clearApplicationCommands(
-    ...client.guilds.cache.map((g) => g.id)
-  );
+  // uncomment this line to clear all guild commands,
+  // useful when moving to global commands from guild commands
+  //  await client.clearApplicationCommands(
+  //    ...client.guilds.cache.map((g) => g.id)
+  //  );
 
   console.log("Bot started");
 });
