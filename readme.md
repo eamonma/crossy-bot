@@ -57,7 +57,7 @@ This repository uses guild commands instead of global commands by default. This 
 
 ## 1. How do I use global command only?
 
-### comment [this line in client.ts](https://github.com/oceanroleplay/discord.ts-example/blob/main/src/client.ts#L18)
+### comment [this line in main.ts](https://github.com/oceanroleplay/discord.ts-example/blob/main/src/main.ts#L18)
 
 ## 2. How do I make specific guild command?
 
@@ -76,9 +76,9 @@ This repo is targed to use ECMAScript modules by default. Follow these steps to 
   // ...
   "scripts": {
     "build": "tsc",
-    "dev": "ts-node src/client.ts",
-    "start": "nodemon --exec ts-node src/client.ts",
-    "serve": "node build/client.js"
+    "dev": "ts-node src/main.ts",
+    "start": "nodemon --exec ts-node src/main.ts",
+    "serve": "node build/main.js"
   }
   // ...
 }
@@ -96,7 +96,7 @@ This repo is targed to use ECMAScript modules by default. Follow these steps to 
 }
 ```
 
-## Update client.ts
+## Update main.ts
 
 ```ts
 async function run() {
