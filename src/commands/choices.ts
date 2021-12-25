@@ -14,7 +14,7 @@ class choicesExample {
     @SlashChoice("Human", "human")
     @SlashChoice("Astraunot", "astro")
     @SlashChoice("Dev", "dev")
-    @SlashOption("what", { description: "What are you?", required: true })
+    @SlashOption("what", { description: "What are you?" })
     what: string,
     interaction: CommandInteraction
   ) {
@@ -25,7 +25,7 @@ class choicesExample {
   async choice(
     @SlashChoice(TextChoices)
     @SlashChoice("How are you", "question")
-    @SlashOption("text", { required: true })
+    @SlashOption("text")
     what: string,
     interaction: CommandInteraction
   ) {
