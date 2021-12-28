@@ -1,6 +1,6 @@
 import { CommandInteraction, MessageEmbed } from "discord.js";
 import { Discord, MetadataStorage, Slash } from "discordx";
-import { Pagination } from "@discordx/utilities";
+import { Pagination } from "@discordx/pagination";
 
 @Discord()
 export abstract class SlashExample {

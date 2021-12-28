@@ -33,9 +33,10 @@
   },
   "dependencies": {
     "@discordx/importer": "^1.1.2",
-    "@discordx/utilities": "^3.1.8",
+    "@discordx/pagination": "^1.0.1",
+    "@discordx/utilities": "^3.2.0",
     "discord.js": "^13.4.0",
-    "discordx": "^9.1.5",
+    "discordx": "^9.1.6",
     "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {
