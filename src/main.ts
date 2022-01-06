@@ -16,7 +16,6 @@ const client = new Client({
   ],
   // If you only want to use global commands only, comment this line
   botGuilds: [(client) => client.guilds.cache.map((guild) => guild.id)],
-  silent: true,
 });
 
 client.once("ready", async () => {

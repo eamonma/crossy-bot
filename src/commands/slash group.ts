@@ -1,5 +1,5 @@
 import { CommandInteraction } from "discord.js";
-import { Discord, Slash, SlashOption, SlashGroup, SlashChoice } from "discordx";
+import { Discord, Slash, SlashOption, SlashGroup } from "discordx";
 
 enum TextChoices {
   Hello = "Hello",

@@ -3,7 +3,6 @@ import {
   CommandInteraction,
   MessageButton,
   MessageActionRow,
-  Snowflake,
   User,
   GuildMember,
 } from "discord.js";
