@@ -2,8 +2,9 @@ import "reflect-metadata";
 import { Intents, Interaction, Message } from "discord.js";
 import { Client } from "discordx";
 import { dirname, importx } from "@discordx/importer";
+import { Koa } from "@discordx/koa";
 
-const client = new Client({
+export const client = new Client({
   simpleCommand: {
     prefix: "!",
   },
@@ -52,8 +53,29 @@ async function run() {
   // with cjs
   // await importx(__dirname + "/{events,commands}/**/*.{ts,js}");
   // with ems
-  await importx(dirname(import.meta.url) + "/{events,commands}/**/*.{ts,js}");
-  client.login(process.env.BOT_TOKEN ?? ""); // provide your bot token
+  await importx(
+    dirname(import.meta.url) + "/{events,commands,api}/**/*.{ts,js}"
+  );
+
+  // let's start the bot
+  await client.login(process.env.BOT_TOKEN ?? ""); // provide your bot token
+
+  // ************* rest api section: start **********
+
+  // api: preare server
+  const server = new Koa();
+
+  // api: need to build the api server first
+  await server.build();
+
+  // api: let's start the server now
+  const port = process.env.PORT ?? 3000;
+  server.listen(port, () => {
+    console.log(`disocrd api server started on ${port}`);
+    console.log(`visit localhost:${port}/guilds`);
+  });
+
+  // ************* rest api section: end **********
 }
 
 run();

@@ -34,14 +34,18 @@
   },
   "dependencies": {
     "@discordx/importer": "^1.1.2",
+    "@discordx/koa": "^1.0.6",
     "@discordx/pagination": "^1.1.0",
     "@discordx/utilities": "^3.3.0",
+    "@koa/router": "^10.1.1",
     "discord.js": "^13.5.1",
     "discordx": "^9.1.9",
+    "koa": "^2.13.4",
     "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {
     "@discordx/changelog": "^2.0.7",
+    "@types/koa": "^2.13.4",
     "nodemon": "^2.0.15",
     "prettier": "^2.5.1",
     "ts-node": "^10.4.0",

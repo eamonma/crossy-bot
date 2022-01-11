@@ -37,6 +37,13 @@
   </p>
 </div>
 
+# Content
+
+- [Installation](#installation)
+- [Use global command only](#use-global-command-only)
+- [Use CommonJS](#use-commonjs)
+- [Remove rest api server](#remove-rest-api-server)
+
 # Installation
 
 - `git clone https://github.com/oceanroleplay/discord.ts-example`
@@ -107,6 +114,17 @@ async function run() {
   client.login(process.env.BOT_TOKEN ?? ""); // provide your bot token
 }
 ```
+
+# Remove rest api server
+
+There are only a few lines of basic code, which you need to either comment out or remove to disable the API server
+
+1. Delete the `api` folder from the [src folder](https://github.com/oceanroleplay/discord.ts-example/tree/main/src)
+1. Remove api reference from importx path in [main.ts:57](https://github.com/oceanroleplay/discord.ts-example/blob/main/src/main.ts#L57)
+1. Comment out or remove the code from [main.ts:63](https://github.com/oceanroleplay/discord.ts-example/blob/main/src/main.ts#L63) to [main.ts:78](https://github.com/oceanroleplay/discord.ts-example/blob/main/src/main.ts#L78)
+1. Run `npm uninstall koa @koa/router @discordx/koa @types/koa`
+
+The API server has been removed from the discord bot
 
 # ☎️ Need help?
 
