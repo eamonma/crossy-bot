@@ -58,7 +58,10 @@ async function run() {
   );
 
   // let's start the bot
-  await client.login(process.env.BOT_TOKEN ?? ""); // provide your bot token
+  if (!process.env.BOT_TOKEN) {
+    throw Error("Could not find BOT_TOKEN in your environment");
+  }
+  await client.login(process.env.BOT_TOKEN); // provide your bot token
 
   // ************* rest api section: start **********
 
@@ -71,7 +74,7 @@ async function run() {
   // api: let's start the server now
   const port = process.env.PORT ?? 3000;
   server.listen(port, () => {
-    console.log(`disocrd api server started on ${port}`);
+    console.log(`discord api server started on ${port}`);
     console.log(`visit localhost:${port}/guilds`);
   });
 
