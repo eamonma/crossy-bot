@@ -1,8 +1,10 @@
+import { CommandInteraction, Message } from "discord.js";
 import {
   Discord,
   SimpleCommand,
   SimpleCommandMessage,
   SimpleCommandOption,
+  Slash,
 } from "discordx";
 
 @Discord()
@@ -22,5 +24,20 @@ class simpleCommandExample {
       return command.sendUsageSyntax();
     }
     command.message.reply(`total = ${num1 + num2}`);
+  }
+
+  // make single handler for simple and slash command
+  likeit(command: CommandInteraction | Message) {
+    command.reply(`I like it, Thanks`);
+  }
+
+  @SimpleCommand("likeit")
+  simpleLikeit(command: SimpleCommandMessage) {
+    this.likeit(command.message);
+  }
+
+  @Slash("likeit")
+  slashLikeit(command: CommandInteraction) {
+    this.likeit(command);
   }
 }
