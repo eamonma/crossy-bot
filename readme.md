@@ -46,15 +46,49 @@
 
 # Installation
 
-- `git clone https://github.com/oceanroleplay/discord.ts-example`
-- `cd discord.ts-example`
-- `npm install`
-- `npm run build`
-- `set BOT_TOKEN=REPLACE_THIS_WITH_YOUR_TOKEN`
+**Clone Repository**
 
-  if you don't have token yet than create one at [discord developer portal](https://discord.com/developers/)
+```bash
+git clone https://github.com/oceanroleplay/discord.ts-example
+```
 
-- `npm run start`
+**Enter bot directory**
+
+```bash
+cd discord.ts-example
+```
+
+**Install Dependencies**
+
+```bash
+npm install
+```
+
+**Build your bot**
+
+```bash
+npm run build
+```
+
+**Set your bot token**
+
+For windows user only
+
+```bash
+set BOT_TOKEN=REPLACE_THIS_WITH_YOUR_TOKEN
+```
+
+For linux user only
+
+```bash
+export BOT_TOKEN=REPLACE_THIS_WITH_YOUR_TOKEN
+```
+
+**Start your bot**
+
+```bash
+npm run serve
+```
 
 you are done, you will see your bot up and running. For detailed installation guide, please [see this](https://oceanroleplay.github.io/discord.ts/docs/installation)
 
