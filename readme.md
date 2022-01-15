@@ -39,10 +39,15 @@
 
 # Content
 
+- [Demo](#demo)
 - [Installation](#installation)
 - [Use global command only](#use-global-command-only)
 - [Use CommonJS](#use-commonjs)
 - [Remove rest api server](#remove-rest-api-server)
+
+# Demo
+
+[CodeSandbox](https://codesandbox.io/s/github/oceanroleplay/discord.ts-example)
 
 # Installation
 
