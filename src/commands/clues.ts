@@ -5,6 +5,7 @@ import { Discord, Slash, SlashOption, SlashGroup, SlashChoice } from "discordx"
 import { request, gql } from "graphql-request"
 import { decode } from "html-entities"
 import escape from "markdown-escape"
+import { Clues, CrosswordData } from "../types/crossword"
 // import { crosswordData } from "../today"
 // import crosswordData from "../today.json"
 
@@ -14,7 +15,7 @@ enum TextChoices {
 }
 
 @Discord()
-export abstract class AppDiscord {
+export abstract class ClueHandler {
   gameQuery: string = gql`
     query game($channelId: String!, $guildId: String!) {
       game(channelId: $channelId, guildId: $guildId) {
@@ -23,11 +24,51 @@ export abstract class AppDiscord {
     }
   `
 
+  static extractClue(
+    clues: Clues,
+    gridNum: number,
+    direction: "across" | "down"
+  ): [string, string | undefined] {
+    for (const clue of clues[direction]) {
+      const indexOfFirstSpace = clue.indexOf(" ")
+      const prefix = clue.substring(0, indexOfFirstSpace)
+      const clueText = clue.substring(indexOfFirstSpace + 1)
+      try {
+        const num = parseInt(prefix.substring(0, prefix.indexOf(".")))
+
+        if (gridNum === num) return [`${gridNum} ${direction}`, clueText]
+      } catch {
+        // return [prefix, "No such clue."]
+      }
+    }
+
+    return [`${gridNum} ${direction}`, undefined]
+  }
+
+  static findClues(
+    clues: Clues,
+    gridNum: number,
+    direction: "across" | "down" | "both"
+  ): Array<[string, string | undefined]> {
+    let clueDir: "across" | "down" = direction === "both" ? "across" : direction
+
+    const cluesArray: Array<[string, string | undefined]> = []
+
+    cluesArray.push(this.extractClue(clues, gridNum, clueDir))
+
+    if (direction === "both") {
+      clueDir = "down"
+      cluesArray.push(this.extractClue(clues, gridNum, clueDir))
+    }
+
+    return cluesArray
+  }
+
   @Slash("qc")
   async quickClue(
     @SlashOption("grid", {
       type: "STRING",
-      description: "Clue number and direction (1d)",
+      description: "Clue number, maybe with direction (e.g. 1d or 1)",
     })
     grid: string,
     interaction: CommandInteraction
@@ -88,10 +129,9 @@ export abstract class AppDiscord {
     // num: number,
     @SlashChoice("Across", "across")
     @SlashChoice("Down", "down")
-    @SlashChoice("Both", "both")
     @SlashOption("direction", {
       type: "STRING",
-      description: "Across or down or both",
+      description: "Across or down",
     })
     direction: "across" | "down" | "both",
     @SlashOption("number", {
@@ -111,53 +151,37 @@ export abstract class AppDiscord {
       }
     )
 
-    const crosswordData = JSON.parse(response.game.puzzle)
-
-    console.log(crosswordData.clues)
+    const crosswordData: CrosswordData = JSON.parse(response.game.puzzle)
 
     if (gridNum) {
       const isBoth = direction === "both"
       let replyValue, clue
 
-      try {
-        if (isBoth) direction = "across"
+      replyValue = `${"```"}`
 
-        clue = crosswordData.clues[direction].find((clue: string) =>
-          clue.substring(0, clue.indexOf(".")).includes(JSON.stringify(gridNum))
-        )
+      const listOfClues = ClueHandler.findClues(
+        crosswordData.clues,
+        gridNum,
+        direction
+      )
 
-        replyValue = `${"```"} ${gridNum} ${direction}: ${decode(
-          clue
-        ).substring(clue.indexOf(". ") + 2)}`
-      } catch {
-        replyValue = `${"```"}`
+      for (const clue of listOfClues) {
+        if (clue[1]) replyValue += `\n ${clue[0]}: ${decode(clue[1])}`
       }
 
-      if (isBoth) {
-        try {
-          direction = "down"
-          clue = crosswordData.clues[direction].find((clue: string) =>
-            clue
-              .substring(0, clue.indexOf("."))
-              .includes(JSON.stringify(gridNum))
-          )
-
-          replyValue += `\n ${gridNum} ${direction}: ${decode(clue).substring(
-            clue.indexOf(". ") + 2
-          )}`
-        } catch {}
-      }
+      if (listOfClues.every((clue) => !clue[1]))
+        replyValue += `\n No such clue.`
 
       replyValue += `${"```"}`
 
       if (!clue) clue = "0. No clue."
 
-      return interaction.reply(replyValue)
+      return await interaction.reply(replyValue)
     }
 
     const pages: MessageEmbed[] = []
 
-    let clues = crosswordData.clues[direction]
+    let clues = crosswordData.clues[direction as "across" | "down"]
 
     if (!clues) clues = []
 
@@ -207,6 +231,11 @@ export abstract class AppDiscord {
     //   )
     // })
     const pagination = new Pagination(interaction, pages)
-    await pagination.send()
+    try {
+      // await interaction.reply({embeds: [pagination]})
+      await pagination.send()
+    } catch {
+      interaction.reply("Clues failed. Try again.")
+    }
   }
 }

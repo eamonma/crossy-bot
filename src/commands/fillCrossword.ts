@@ -8,6 +8,8 @@ import {
 import { Discord, Slash, SlashOption, SlashGroup, SlashChoice } from "discordx"
 import { request, gql } from "graphql-request"
 import { decode } from "html-entities"
+import { CrosswordData } from "../types/crossword"
+import { ClueHandler } from "./clues.js"
 
 enum TextChoices {
   Hello = "Hello",
@@ -132,7 +134,7 @@ export abstract class AppDiscord {
       )
     }
 
-    const crosswordData = JSON.parse(response.fill.puzzle)
+    const crosswordData: CrosswordData = JSON.parse(response.fill.puzzle)
 
     const bufferAttachmenet = Buffer.from(`${response.fill.image}`, "base64")
     const attachment = new MessageAttachment(bufferAttachmenet, "output.png")
@@ -151,11 +153,15 @@ export abstract class AppDiscord {
 
     if (!clue) clue = "0. No clue."
 
+    const [prefix, clueText] = ClueHandler.extractClue(
+      crosswordData.clues,
+      gridNum,
+      direction
+    )
+
     await interaction.editReply({
       content: `${"```"} ${nickname} filled in ${answer.toUpperCase()} for 
- ${gridNum} ${direction}: ${decode(clue).substring(
-        clue.indexOf(". ") + 2
-      )} ${"```"}`,
+ ${prefix}: ${decode(clueText)} ${"```"}`,
       files: [attachment],
     })
 
@@ -200,17 +206,38 @@ export abstract class AppDiscord {
 
   @Slash("whatswrong")
   async whatswrong(
-    @SlashOption("private", {
-      type: "BOOLEAN",
-      description: "Only show to you",
-      required: false,
-    })
-    ephemeral: boolean = true,
+    // @SlashOption("private", {
+    //   type: "BOOLEAN",
+    //   description: "Only show to you",
+    //   required: false,
+    // })
+    // ephemeral: boolean = true,
     interaction: CommandInteraction
   ) {
     let response
 
-    await interaction.deferReply({ ephemeral })
+    await interaction.deferReply()
+
+    try {
+      const allFilled = await request(
+        "http://localhost:4000/api",
+        this.checkAllFilled,
+        {
+          channelId: interaction.channelId,
+          guildId: interaction.guildId,
+        }
+      )
+
+      if (!allFilled.allFilled) {
+        return await interaction.editReply("Die, pig.")
+      }
+    } catch (error) {
+      console.log(error)
+
+      return interaction.followUp(
+        "Something went wrong with checking filled-ness. Try again later."
+      )
+    }
 
     try {
       response = await request(
