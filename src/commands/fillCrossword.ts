@@ -22,12 +22,13 @@ enum TextChoices {
 //   text: "text group description",
 // })
 export abstract class AppDiscord {
-  fillQuery: string = gql`
+  fillMutation: string = gql`
     mutation fill(
       $channelId: String!
       $guildId: String!
       $answer: String!
       $direction: String!
+      $playerId: String!
       $gridNum: Float!
     ) {
       fill(
@@ -35,6 +36,7 @@ export abstract class AppDiscord {
         guildId: $guildId
         answer: $answer
         direction: $direction
+        playerId: $playerId
         gridNum: $gridNum
       ) {
         image
@@ -115,12 +117,13 @@ export abstract class AppDiscord {
     await interaction.deferReply()
 
     try {
-      response = await request("http://localhost:4000/api", this.fillQuery, {
+      response = await request("http://localhost:4000/api", this.fillMutation, {
         channelId: interaction.channelId,
         guildId: interaction.guildId,
         answer,
         direction,
         gridNum,
+        playerId: interaction.user.id,
       })
     } catch (error) {
       console.log(error)

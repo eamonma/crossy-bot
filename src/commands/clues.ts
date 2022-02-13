@@ -85,8 +85,6 @@ export abstract class ClueHandler {
         gridNum = parseInt(grid.substring(0, grid.indexOf("a")))
       } else {
         try {
-          console.log(grid)
-
           gridNum = parseInt(grid)
           direction = "both"
 
@@ -142,14 +140,15 @@ export abstract class ClueHandler {
     gridNum: number,
     interaction: CommandInteraction
   ) {
-    const response = await request(
-      "http://localhost:4000/api",
-      this.gameQuery,
-      {
+    let response
+    try {
+      response = await request("http://localhost:4000/api", this.gameQuery, {
         channelId: interaction.channelId,
         guildId: interaction.guildId,
-      }
-    )
+      })
+    } catch (error: any) {
+      return await interaction.reply("No such game.")
+    }
 
     const crosswordData: CrosswordData = JSON.parse(response.game.puzzle)
 
