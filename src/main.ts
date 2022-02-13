@@ -26,6 +26,12 @@ export const client = new Client({
   botGuilds: [(client) => client.guilds.cache.map((guild) => guild.id)],
 })
 
+client.once("guildCreate", async () => {
+  await client.initApplicationCommands({
+    guild: { log: true },
+  })
+})
+
 client.once("ready", async () => {
   // make sure all guilds are in cache
   await client.guilds.fetch()
