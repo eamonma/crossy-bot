@@ -15,6 +15,7 @@ export abstract class CrosswordGrid {
   gameQuery: string = gql`
     query game($channelId: String!, $guildId: String!) {
       game(channelId: $channelId, guildId: $guildId) {
+        id
         image
       }
     }
@@ -98,6 +99,7 @@ export abstract class CrosswordGrid {
     mutation {
       startGame(puzzleUrl: "${puzzleUrl}", guildId: "${interaction.guildId}", channelId: "${interaction.channelId}") {
         image
+        id
       }
     }
   `
@@ -128,6 +130,36 @@ export abstract class CrosswordGrid {
     const attachment = new MessageAttachment(bufferAttachmenet, "output.png")
 
     await interaction.editReply({ files: [attachment] })
+    interaction.followUp(
+      `Visit https://crossy.me/game/${response.startGame.id} for a live view.`
+    )
+  }
+
+  @Slash("link")
+  async getLink(interaction: CommandInteraction): Promise<void> {
+    let response
+
+    await interaction.deferReply()
+
+    try {
+      response = await request("http://localhost:4000/api", this.gameQuery, {
+        channelId: interaction.channelId,
+        guildId: interaction.guildId,
+      })
+    } catch (error: any) {
+      if (error.response.errors.length) {
+        interaction.editReply(error.response.errors[0].message)
+        return
+      }
+    }
+
+    if (!response) {
+      interaction.editReply("Failed to show game. Please try again later")
+    }
+
+    interaction.editReply(
+      `Visit https://crossy.me/game/${response.game.id} for a live view.`
+    )
   }
 
   @Slash("crossword", { description: "Show the crossword grid" })

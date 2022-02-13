@@ -3,8 +3,8 @@ import { Intents, Interaction, Message } from "discord.js"
 import { Client } from "discordx"
 import { dirname, importx } from "@discordx/importer"
 import { Koa } from "@discordx/koa"
-import puppeteer, { Browser } from "puppeteer"
 import bodyParser from "koa-bodyparser"
+import "dotenv/config"
 
 export const client = new Client({
   simpleCommand: {
