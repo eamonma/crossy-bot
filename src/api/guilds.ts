@@ -1,11 +1,7 @@
 import { Get, Post, Router } from "@discordx/koa"
 import type { Context } from "koa"
 import { client } from "../main.js"
-import puppeteer, { Browser } from "puppeteer"
 // import ormConfig from "./orm.config"
-
-let browser = await puppeteer.launch()
-const pages = new Map()
 
 @Router()
 export class API {
