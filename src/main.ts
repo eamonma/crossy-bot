@@ -70,7 +70,7 @@ async function run() {
     dirname(import.meta.url) + "/{events,commands,api}/**/*.{ts,js}"
   )
 
-  // let's start the bot
+  // Start bot
   if (!process.env.BOT_TOKEN) {
     throw Error("Could not find BOT_TOKEN in your environment")
   }
@@ -81,7 +81,7 @@ async function run() {
   // api: preare server
   const server = new Koa()
 
-  server.use(bodyParser())
+  // server.use(bodyParser())
 
   // api: need to build the api server first
   await server.build()
