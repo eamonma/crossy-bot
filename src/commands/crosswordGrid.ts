@@ -176,7 +176,7 @@ export abstract class CrosswordGrid {
       .setLabel("View live")
       // .setEmoji("👋")
       .setStyle("LINK")
-      .setURL(`https://crossy.me/game/${response.startGame.id}`)
+      .setURL(`https://crossy.me/game/${response.game.id}`)
     // .setCustomId("hello-btn");
 
     // Create a MessageActionRow and add the button to that row.
