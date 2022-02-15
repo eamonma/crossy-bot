@@ -172,9 +172,20 @@ export abstract class CrosswordGrid {
       interaction.editReply("Failed to show game. Please try again later")
     }
 
-    interaction.editReply(
-      `Visit https://crossy.me/game/${response.game.id} for a live view.`
-    )
+    const linkButton = new MessageButton()
+      .setLabel("View live")
+      // .setEmoji("👋")
+      .setStyle("LINK")
+      .setURL(`https://crossy.me/game/${response.startGame.id}`)
+    // .setCustomId("hello-btn");
+
+    // Create a MessageActionRow and add the button to that row.
+    const row = new MessageActionRow().addComponents(linkButton)
+
+    await interaction.editReply({
+      content: `Visit https://crossy.me/game/${response.game.id} for a live view.`,
+      components: [row],
+    })
   }
 
   @Slash("crossword", { description: "Show the crossword grid" })
