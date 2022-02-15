@@ -1,7 +1,9 @@
 import {
   CommandInteraction,
   Integration,
+  MessageActionRow,
   MessageAttachment,
+  MessageButton,
   MessageEmbed,
 } from "discord.js"
 import { Discord, MetadataStorage, Slash, SlashOption } from "discordx"
@@ -129,10 +131,23 @@ export abstract class CrosswordGrid {
     )
     const attachment = new MessageAttachment(bufferAttachmenet, "output.png")
 
-    await interaction.editReply({ files: [attachment] })
-    interaction.followUp(
-      `Visit https://crossy.me/game/${response.startGame.id} for a live view.`
-    )
+    const linkButton = new MessageButton()
+      .setLabel("View live")
+      // .setEmoji("👋")
+      .setStyle("LINK")
+      .setURL(`https://crossy.me/game/${response.startGame.id}`)
+    // .setCustomId("hello-btn");
+
+    // Create a MessageActionRow and add the button to that row.
+    const row = new MessageActionRow().addComponents(linkButton)
+
+    await interaction.editReply({ files: [attachment], components: [row] })
+
+    // interaction.
+
+    // interaction.followUp(
+    //   `Visit https://crossy.me/game/${response.startGame.id} for a live view.`
+    // )
   }
 
   @Slash("link")
