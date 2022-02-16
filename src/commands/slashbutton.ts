@@ -33,7 +33,7 @@ class buttonExample {
   }
 
   @ButtonComponent("hello-btn")
-  mybtn(interaction: ButtonInteraction) {
-    interaction.user.send(`👋 ${interaction.member}`)
+  async amybtn(interaction: ButtonInteraction) {
+    await interaction.user.send(`👋 ${interaction.member}`)
   }
 }
