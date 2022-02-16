@@ -19,12 +19,22 @@ export abstract class AppDiscord {
 
     const messageToSend = `Message from ${message.author?.username}#${message.author?.discriminator} (${message.author?.id})`
 
+    let content = message.content
+
+    if (message.attachments.size > 0) {
+      content += message.attachments.reduce(
+        (prev, curr, i) => `${prev}\n${i}: ${curr.url}`,
+        "Attachments:"
+      )
+    }
+
     console.log(
-      `=====${messageToSend}=====\n${message.content}\n=====${"".padEnd(
+      `=====${messageToSend}=====\n${content}\n=====${"".padEnd(
         messageToSend.length,
         "="
       )}=====`
     )
+
     if (message.channel.type === "DM") {
       if (message.content?.includes("bruh")) return
       await message.channel.sendTyping()
