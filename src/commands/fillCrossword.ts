@@ -180,8 +180,6 @@ export abstract class AppDiscord {
         }
       )
 
-      console.log(allFilled)
-
       if (allFilled.allFilled) {
         const checkCorrect = await request(
           "http://localhost:4000/api",

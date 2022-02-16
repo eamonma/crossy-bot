@@ -10,12 +10,14 @@ export const client = new Client({
   simpleCommand: {
     prefix: "!",
   },
+  partials: ["CHANNEL"],
   intents: [
     Intents.FLAGS.GUILDS,
     Intents.FLAGS.GUILD_MEMBERS,
     Intents.FLAGS.GUILD_MESSAGES,
     Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
     Intents.FLAGS.GUILD_VOICE_STATES,
+    Intents.FLAGS.DIRECT_MESSAGES,
   ],
 
   // classes: [
