@@ -26,6 +26,7 @@ export abstract class AppDiscord {
       )}=====`
     )
     if (message.channel.type === "DM") {
+      if (message.content?.includes("bruh")) return
       await message.channel.sendTyping()
       setTimeout(async () => {
         await message.author?.send("bruh")
