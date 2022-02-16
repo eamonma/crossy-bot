@@ -28,8 +28,15 @@ export abstract class AppDiscord {
     if (message.channel.type === "DM") {
       if (message.content?.includes("bruh")) return
       await message.channel.sendTyping()
+
+      let response = "bruh"
+
+      if (message.content?.includes("fuck")) response = "why so rude"
+      if (message.content?.includes("shit")) response = "damn"
+      if (message.content?.includes("slow")) response = "no u"
+
       setTimeout(async () => {
-        await message.author?.send("bruh")
+        await message.author?.send(response)
       }, this.randomIntFromInterval(2, 5) * 1000)
     }
   }
