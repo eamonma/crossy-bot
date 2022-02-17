@@ -205,7 +205,9 @@ export abstract class ClueHandler {
         try {
           clue = clues[i + j]
           if (!clue) break
-          const clueText = escape(decode(clue))
+          const clueText = escape(
+            decode(clue).replaceAll("<em>", "*").replaceAll("</em>", "*")
+          )
           const num = clueText.substring(0, clueText.indexOf(" "))
           description += `\`${num.padStart(4, " ")}\` ${clueText.substring(
             clueText.indexOf(" ")
