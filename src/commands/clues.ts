@@ -165,7 +165,10 @@ export abstract class ClueHandler {
       )
 
       for (const clue of listOfClues) {
-        if (clue[1]) replyValue += `\n ${clue[0]}: ${decode(clue[1])}`
+        if (clue[1])
+          replyValue += `\n ${clue[0]}: ${decode(
+            clue[1].replaceAll("<em>", "*").replaceAll("</em>", "*")
+          )}`
       }
 
       if (listOfClues.every((clue) => !clue[1]))
