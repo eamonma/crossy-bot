@@ -206,7 +206,8 @@ export abstract class ClueHandler {
           clue = clues[i + j]
           if (!clue) break
           const clueText = escape(
-            decode(clue).replaceAll("<em>", "*").replaceAll("</em>", "*")
+            decode(clue).replaceAll("<em>", "*").replaceAll("</em>", "*"),
+            ["asterisks"]
           )
           const num = clueText.substring(0, clueText.indexOf(" "))
           description += `\`${num.padStart(4, " ")}\` ${clueText.substring(
