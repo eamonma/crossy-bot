@@ -150,6 +150,30 @@ export abstract class CrosswordGrid {
     // )
   }
 
+  @Slash("secret")
+  async secret(
+    @SlashOption("secret", {
+      type: "STRING",
+      description: "secret",
+    })
+    secret: string,
+    @SlashOption("secret-2", {
+      type: "STRING",
+      description: "secret 2",
+    })
+    secret2: string,
+    interaction: CommandInteraction
+  ): Promise<void> {
+    if (secret !== (process.env.SECRET as string)) {
+      await interaction.deferReply()
+    }
+
+    await this.startGame(
+      `${process.env.SECRET_URL as string}${secret2}.json`,
+      interaction
+    )
+  }
+
   @Slash("link")
   async getLink(interaction: CommandInteraction): Promise<void> {
     let response
