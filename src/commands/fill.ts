@@ -6,10 +6,12 @@ import {
   MessageAttachment,
 } from "discord.js"
 import { Discord, Slash, SlashOption, SlashGroup, SlashChoice } from "discordx"
-import { request, gql } from "graphql-request"
+import { gql } from "graphql-request"
 import { decode } from "html-entities"
 import { CrosswordData } from "../types/crossword"
-import { ClueHandler } from "./clues.js"
+import { CrosswordClues } from "./clues.js"
+
+import { graphQLClient } from "../graphqlClient.js"
 
 enum TextChoices {
   Hello = "Hello",
@@ -17,10 +19,6 @@ enum TextChoices {
 }
 
 @Discord()
-// @SlashGroup("fill", "Fill letters in crossword", {
-//   maths: "maths group description",
-//   text: "text group description",
-// })
 export abstract class AppDiscord {
   fillMutation: string = gql`
     mutation fill(
@@ -117,7 +115,7 @@ export abstract class AppDiscord {
     await interaction.deferReply()
 
     try {
-      response = await request("http://localhost:4000/api", this.fillMutation, {
+      response = await graphQLClient.request(this.fillMutation, {
         channelId: interaction.channelId,
         guildId: interaction.guildId,
         answer,
@@ -156,7 +154,7 @@ export abstract class AppDiscord {
 
     if (!clue) clue = "0. No clue."
 
-    const [prefix, clueText] = ClueHandler.extractClue(
+    const [prefix, clueText] = CrosswordClues.extractClue(
       crosswordData.clues,
       gridNum,
       direction
@@ -171,24 +169,16 @@ export abstract class AppDiscord {
     // Check if game is completely filled
 
     try {
-      const allFilled = await request(
-        "http://localhost:4000/api",
-        this.checkAllFilled,
-        {
-          channelId: interaction.channelId,
-          guildId: interaction.guildId,
-        }
-      )
+      const allFilled = await graphQLClient.request(this.checkAllFilled, {
+        channelId: interaction.channelId,
+        guildId: interaction.guildId,
+      })
 
       if (allFilled.allFilled) {
-        const checkCorrect = await request(
-          "http://localhost:4000/api",
-          this.checkCorrect,
-          {
-            channelId: interaction.channelId,
-            guildId: interaction.guildId,
-          }
-        )
+        const checkCorrect = await graphQLClient.request(this.checkCorrect, {
+          channelId: interaction.channelId,
+          guildId: interaction.guildId,
+        })
 
         if (checkCorrect.checkCorrect.allCorrect)
           return interaction.followUp("Congratulation.")
@@ -203,76 +193,5 @@ export abstract class AppDiscord {
         "Something went wrong with checking correctness. Try again later."
       )
     }
-  }
-
-  @Slash("whatswrong")
-  async whatswrong(
-    // @SlashOption("private", {
-    //   type: "BOOLEAN",
-    //   description: "Only show to you",
-    //   required: false,
-    // })
-    // ephemeral: boolean = true,
-    interaction: CommandInteraction
-  ) {
-    let response
-
-    await interaction.deferReply()
-
-    try {
-      const allFilled = await request(
-        "http://localhost:4000/api",
-        this.checkAllFilled,
-        {
-          channelId: interaction.channelId,
-          guildId: interaction.guildId,
-        }
-      )
-
-      if (!allFilled.allFilled) {
-        return await interaction.editReply("Die, pig.")
-      }
-    } catch (error) {
-      console.log(error)
-
-      return interaction.followUp(
-        "Something went wrong with checking filled-ness. Try again later."
-      )
-    }
-
-    try {
-      response = await request(
-        "http://localhost:4000/api",
-        this.checkWhichIncorrect,
-        {
-          channelId: interaction.channelId,
-          guildId: interaction.guildId,
-        }
-      )
-    } catch (error) {
-      console.log(error)
-
-      return interaction.editReply(
-        "Start a game before you check what's incorrect."
-      )
-    }
-
-    if (!response) {
-      return interaction.editReply(
-        "Failed to check game. Please try again later"
-      )
-    }
-
-    // const crosswordData = JSON.parse(response.whichIncorrect.puzzle)
-
-    const bufferAttachmenet = Buffer.from(
-      `${response.whichIncorrect.image}`,
-      "base64"
-    )
-    const attachment = new MessageAttachment(bufferAttachmenet, "output.png")
-
-    await interaction.editReply({
-      files: [attachment],
-    })
   }
 }

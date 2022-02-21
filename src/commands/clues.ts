@@ -1,21 +1,15 @@
 import { Pagination } from "@discordx/pagination"
-import axios from "axios"
 import { CommandInteraction, MessageEmbed } from "discord.js"
-import { Discord, Slash, SlashOption, SlashGroup, SlashChoice } from "discordx"
-import { request, gql } from "graphql-request"
+import { Discord, Slash, SlashChoice, SlashOption } from "discordx"
+import { gql } from "graphql-request"
 import { decode } from "html-entities"
 import escape from "markdown-escape"
 import { Clues, CrosswordData } from "../types/crossword"
-// import { crosswordData } from "../today"
-// import crosswordData from "../today.json"
 
-enum TextChoices {
-  Hello = "Hello",
-  "Good Bye" = "GoodBye",
-}
+import { graphQLClient } from "../graphqlClient.js"
 
 @Discord()
-export abstract class ClueHandler {
+export abstract class CrosswordClues {
   gameQuery: string = gql`
     query game($channelId: String!, $guildId: String!) {
       game(channelId: $channelId, guildId: $guildId) {
@@ -142,7 +136,7 @@ export abstract class ClueHandler {
   ) {
     let response
     try {
-      response = await request("http://localhost:4000/api", this.gameQuery, {
+      response = await graphQLClient.request(this.gameQuery, {
         channelId: interaction.channelId,
         guildId: interaction.guildId,
       })
@@ -158,7 +152,7 @@ export abstract class ClueHandler {
 
       replyValue = `${"```"}`
 
-      const listOfClues = ClueHandler.findClues(
+      const listOfClues = CrosswordClues.findClues(
         crosswordData.clues,
         gridNum,
         direction
