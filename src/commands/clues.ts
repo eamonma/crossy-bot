@@ -232,6 +232,7 @@ export abstract class CrosswordClues {
     const pagination = new Pagination(interaction, pages)
     try {
       // await interaction.reply({embeds: [pagination]})
+
       await pagination.send()
     } catch {
       interaction.reply("Clues failed. Try again.")

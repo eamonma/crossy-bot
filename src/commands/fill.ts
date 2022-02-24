@@ -29,7 +29,7 @@ export abstract class AppDiscord {
       $playerId: String!
       $gridNum: Float!
     ) {
-      fill(
+      fillByChannelAndGuildIds(
         channelId: $channelId
         guildId: $guildId
         answer: $answer
@@ -135,9 +135,14 @@ export abstract class AppDiscord {
       )
     }
 
-    const crosswordData: CrosswordData = JSON.parse(response.fill.puzzle)
+    const crosswordData: CrosswordData = JSON.parse(
+      response.fillByChannelAndGuildIds.puzzle
+    )
 
-    const bufferAttachmenet = Buffer.from(`${response.fill.image}`, "base64")
+    const bufferAttachmenet = Buffer.from(
+      `${response.fillByChannelAndGuildIds.image}`,
+      "base64"
+    )
     const attachment = new MessageAttachment(bufferAttachmenet, "output.png")
 
     let nickname
