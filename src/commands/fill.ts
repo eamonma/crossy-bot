@@ -181,7 +181,7 @@ export abstract class AppDiscord {
         })
 
         if (checkCorrect.checkCorrect.allCorrect)
-          return interaction.followUp("Congratulation.")
+          return interaction.followUp("Divine sheep that is so salacious I will inhale your aperture.")
         return interaction.followUp(
           "You failed to solve the puzzle. Be more creative."
         )
