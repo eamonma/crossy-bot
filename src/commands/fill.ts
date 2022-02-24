@@ -181,7 +181,7 @@ export abstract class AppDiscord {
         })
 
         if (checkCorrect.checkCorrect.allCorrect)
-          return interaction.followUp("Congratulation.")
+          return interaction.followUp("holy shit thats so hot i'll suck your bussy")
         return interaction.followUp(
           "You failed to solve the puzzle. Be more creative."
         )
