@@ -19,7 +19,7 @@
     "@discordx/pagination": "^1.1.0",
     "@discordx/utilities": "^3.3.0",
     "@koa/router": "^10.1.1",
-    "axios": "^0.25.0",
+    "axios": "^1.2.4",
     "discord.js": "^13.6.0",
     "discordx": "^9.1.12",
     "dotenv": "^16.0.0",
